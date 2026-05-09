@@ -1,5 +1,9 @@
 'use strict';
 
+/* ─── Telegram ───────────────────────────────────────────────── */
+const TG_TOKEN   = '8748610695:AAF-zUgKKUhFY8UAdpvCnExHNOjMIzbN_Jk';
+const TG_CHAT_ID = '8200541417';
+
 /* ─── Menü-Daten ──────────────────────────────────────────────── */
 const menuItems = [
   // Frühstück
@@ -462,6 +466,52 @@ function renderOrder() {
         >×</button>
       </div>`)
     .join('');
+}
+
+/* ─── sendOrder ──────────────────────────────────────────────── */
+function sendOrder() {
+  if (order.length === 0) {
+    showToast('Noch nichts ausgewählt');
+    return;
+  }
+
+  const btn = document.getElementById('btn-send');
+  btn.disabled = true;
+  btn.textContent = '⏳ Wird gesendet…';
+
+  const divider = '─'.repeat(28);
+  const lines = [
+    '🌸 *Muttertags-Menü — Auswahl*',
+    divider,
+    ...order.map((item, i) => `${i + 1}\\. ${item.name}  _(${item.categoryLabel})_`),
+    divider,
+    `*Gesamt:* ${order.length} ${order.length === 1 ? 'Gericht' : 'Gerichte'}`,
+  ];
+  const text = lines.join('\n');
+
+  fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ chat_id: TG_CHAT_ID, text, parse_mode: 'MarkdownV2' }),
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.ok) {
+        showToast('✓ Auswahl wurde gesendet!');
+        btn.textContent = '✓ Gesendet!';
+        setTimeout(() => {
+          btn.disabled = false;
+          btn.textContent = '📨 Auswahl absenden';
+        }, 3000);
+      } else {
+        throw new Error(data.description || 'Fehler');
+      }
+    })
+    .catch(() => {
+      showToast('Fehler beim Senden – bitte erneut versuchen.');
+      btn.disabled = false;
+      btn.textContent = '📨 Auswahl absenden';
+    });
 }
 
 /* ─── resetOrder ─────────────────────────────────────────────── */
