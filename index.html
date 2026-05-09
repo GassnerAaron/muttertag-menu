@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Muttertags-Menü 🌸</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero-deco hero-deco--left" aria-hidden="true">🌷</div>
+    <div class="hero-deco hero-deco--right" aria-hidden="true">🌸</div>
+    <div class="hero-inner">
+      <span class="hero-badge">🌸 Muttertag 2025</span>
+      <h1 class="hero-title">Muttertags-Menü</h1>
+      <p class="hero-subtitle">Frühstück &amp; Mittagessen mit Liebe gemacht</p>
+      <p class="hero-hint">Wähle dein Lieblingsgericht und passende Beilagen.</p>
+    </div>
+  </header>
+
+  <main class="main-layout">
+
+    <div class="content-col">
+
+      <nav class="filter-nav" aria-label="Kategorie-Filter">
+        <button class="filter-btn active" data-filter="all">✨ Alle</button>
+        <button class="filter-btn" data-filter="fruehstueck">🍳 Frühstück</button>
+        <button class="filter-btn" data-filter="mittagessen">🍝 Mittagessen</button>
+        <button class="filter-btn" data-filter="beilagen">🥗 Beilagen</button>
+        <button class="filter-btn" data-filter="getraenke">☕ Getränke</button>
+        <button class="filter-btn" data-filter="suesess">🍬 Süßes</button>
+      </nav>
+
+      <div id="menu-container" class="menu-container"></div>
+
+    </div>
+
+    <aside class="order-col" aria-label="Bestellübersicht">
+      <div class="order-panel">
+        <h2 class="order-heading">❤️ Deine Auswahl</h2>
+        <p id="order-count" class="order-count">Noch nichts ausgewählt</p>
+        <div id="order-list" class="order-list">
+          <p class="order-placeholder">Wähle Gerichte aus, um sie hier zu sehen. ♡</p>
+        </div>
+        <div class="order-actions">
+          <button class="btn btn--copy" onclick="copyOrder()">📋 Auswahl kopieren</button>
+          <button class="btn btn--reset" onclick="resetOrder()">✕ Zurücksetzen</button>
+        </div>
+      </div>
+    </aside>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>❤️ Mit Liebe gemacht — Muttertag 2025</p>
+  </footer>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
