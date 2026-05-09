@@ -481,18 +481,18 @@ function sendOrder() {
 
   const divider = '─'.repeat(28);
   const lines = [
-    '🌸 *Muttertags-Menü — Auswahl*',
+    '🌸 Muttertags-Menü — Auswahl',
     divider,
-    ...order.map((item, i) => `${i + 1}\\. ${item.name}  _(${item.categoryLabel})_`),
+    ...order.map((item, i) => `${i + 1}. ${item.name} (${item.categoryLabel})`),
     divider,
-    `*Gesamt:* ${order.length} ${order.length === 1 ? 'Gericht' : 'Gerichte'}`,
+    `Gesamt: ${order.length} ${order.length === 1 ? 'Gericht' : 'Gerichte'}`,
   ];
   const text = lines.join('\n');
 
   fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ chat_id: TG_CHAT_ID, text, parse_mode: 'MarkdownV2' }),
+    body: JSON.stringify({ chat_id: TG_CHAT_ID, text }),
   })
     .then(res => res.json())
     .then(data => {
